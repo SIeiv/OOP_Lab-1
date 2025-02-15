@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace OOP_Lab_1.Infrastructure.Helpers;
+namespace OOP_Lab_1.ViewModels;
 
 public class RelayCommand : ICommand
 {
@@ -21,5 +21,4 @@ public class RelayCommand : ICommand
         add => CommandManager.RequerySuggested += value;
         remove => CommandManager.RequerySuggested -= value;
     }
-    
 }

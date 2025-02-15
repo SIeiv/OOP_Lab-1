@@ -9,11 +9,4 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Core\Enums\" />
-      <Folder Include="Core\Interfaces\" />
-      <Folder Include="Core\Services\" />
-      <Folder Include="ViewModels\" />
-    </ItemGroup>
-
 </Project>
