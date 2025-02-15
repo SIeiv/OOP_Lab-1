@@ -25,17 +25,6 @@ public partial class MainWindow : Window
 
     private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
     {
-        try
-        {
-            var computer = new Computer(1488, 3.2f, "Desktop", "Intel Core I7", "DDR4", "Kingston", 16);
-            Test.Content = computer.GetPrice();
-            /*var fw = new FillWindow();
-            fw.Show();*/
-            TestLabel.Content = computer.ToString();
-        }
-        catch (Exception exception)
-        {
-            MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
+        
     }
 }
