@@ -41,7 +41,6 @@ public class Computer
     public Computer()
     {
         InstanceCount++;
-        _ram = new Ram(); 
     }
 
     public override string ToString() => 

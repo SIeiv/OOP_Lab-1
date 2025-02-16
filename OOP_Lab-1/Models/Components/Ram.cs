@@ -10,6 +10,14 @@ public record Ram
     private int _size;
     private MemoryType _type;
 
+    public Ram() {}
+
+    public Ram(int size, MemoryType type)
+    {
+        SizeGB = size;
+        Type = type;
+    }
+    
     public int SizeGB
     {
         get => _size;

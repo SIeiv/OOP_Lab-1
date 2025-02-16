@@ -1,0 +1,27 @@
+﻿<Window x:Class="OOP_Lab_1.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:OOP_Lab_1.Views"
+        xmlns:collections="clr-namespace:System.Collections;assembly=System.Runtime"
+        xmlns:models="clr-namespace:OOP_Lab_1.Models"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Name="grid1">
+        <ListView Name="MainList">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=CPU}">Процессор</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Memory}">ОЗУ</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=StorageGB}" Width="150">Размер Хранилища</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=StorageType}" Width="150">Тип Хранилища</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Manufacturer}" Width="150">Производитель</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}">Цена</GridViewColumn>
+                </GridView>
+            </ListView.View>
+            
+        </ListView>
+        <Button Name="AddInitButton" Click="AddInitButton_OnClick" Width="100" Height="30" Content="Добавить" VerticalAlignment="Bottom" Margin="20"/>
+    </Grid>
+</Window>

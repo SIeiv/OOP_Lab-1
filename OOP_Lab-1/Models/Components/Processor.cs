@@ -10,24 +10,32 @@ public record Processor
     private string _model;
     private double _frequency;
 
+    public Processor() {}
+    public Processor(Manufacturer manufacturer, string model, double frequency)
+    {
+        Brand = manufacturer;
+        Model = model;
+        FrequencyGHz = frequency;
+    }
+
     public Manufacturer Brand
     {
         get => _brand;
-        init => _brand = IsValidBrand(value) ? value : 
+        set => _brand = IsValidBrand(value) ? value : 
             throw new InvalidProcessorException("Invalid processor brand");
     }
 
     public string Model
     {
         get => _model;
-        init => _model = string.IsNullOrWhiteSpace(value) ? 
+        set => _model = string.IsNullOrWhiteSpace(value) ? 
             throw new InvalidProcessorException("Model cannot be empty") : value;
     }
 
     public double FrequencyGHz
     {
         get => _frequency;
-        init => _frequency = value is > 0 and <= 6 ? value : 
+        set => _frequency = value is > 0 and <= 6 ? value : 
             throw new InvalidProcessorException("Invalid frequency");
     }
 

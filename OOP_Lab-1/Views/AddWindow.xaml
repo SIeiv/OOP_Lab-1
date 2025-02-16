@@ -1,0 +1,109 @@
+﻿ <Window x:Class="OOP_Lab_1.Views.AddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:OOP_Lab_1.Views"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        xmlns:enums="clr-namespace:OOP_Lab_1.Models.Enums"
+        mc:Ignorable="d"
+        Title="Добавить компьютер" Height="350" Width="400">
+     <Window.Resources>
+         <ObjectDataProvider x:Key="Manufacturers" MethodName="GetValues"
+                             ObjectType="{x:Type system:Enum}">
+             <ObjectDataProvider.MethodParameters>
+                 <x:Type TypeName="enums:Manufacturer"/>
+             </ObjectDataProvider.MethodParameters>
+         </ObjectDataProvider>
+         <ObjectDataProvider x:Key="RamTypes" MethodName="GetValues"
+                             ObjectType="{x:Type system:Enum}">
+             <ObjectDataProvider.MethodParameters>
+                 <x:Type TypeName="enums:MemoryType"/>
+             </ObjectDataProvider.MethodParameters>
+         </ObjectDataProvider>
+         <ObjectDataProvider x:Key="StorageTypes" MethodName="GetValues"
+                             ObjectType="{x:Type system:Enum}">
+             <ObjectDataProvider.MethodParameters>
+                 <x:Type TypeName="enums:StorageType"/>
+             </ObjectDataProvider.MethodParameters>
+         </ObjectDataProvider>
+     </Window.Resources>
+     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Процессор" Height="28" Name="ProcessorLabel" VerticalAlignment="Top"/>
+            <Label Content="Производитель" Height="28" Name="ProcessorManufactLabel" Width="100" />
+            
+            <ComboBox Margin="0,32,0,0" Height="20" Width="100" Name="ProcessorManufactComboBox"
+                      ItemsSource="{Binding Source={StaticResource Manufacturers}}">
+            </ComboBox>
+            
+            <Label Grid.Column="1" Content="Модель" Height="28" Name="ProcessorModelLabel" Width="100"/>
+            <TextBox Grid.Column="1" Margin="0,32,0,0" Name="ProcessorModelTextBox" Width="100" VerticalAlignment="Center" />
+            <Label Grid.Column="2" Content="Частота" Height="28" Name="ProcessorFrequencyLabel" Width="100"/>
+            <TextBox Grid.Column="2" Margin="0,32,0,0" Name="ProcessorFrequencyTextBox" Width="100" VerticalAlignment="Center" />
+        </Grid>
+         <Grid Grid.Row="1">
+             <Grid.ColumnDefinitions>
+                 <ColumnDefinition></ColumnDefinition>
+                 <ColumnDefinition></ColumnDefinition>
+                 <ColumnDefinition></ColumnDefinition>
+             </Grid.ColumnDefinitions>
+             <Label Content="ОЗУ" Height="28" Name="RamLabel" VerticalAlignment="Top"/>
+             
+            
+             <Label Grid.Column="0" Content="Объём" Height="28" Width="100"/>
+             <TextBox Grid.Column="0" Margin="0,32,0,0" Name="RamSizeTextBox" Width="100" VerticalAlignment="Center" />
+             
+             <Label Grid.Column="1" Content="Тип" Height="28" Name="BaseLabel" Width="100" />
+             <ComboBox Grid.Column="1" Margin="0,32,0,0" Height="20" Width="100" Name="RamTypeComboBox"
+                       ItemsSource="{Binding Source={StaticResource RamTypes}}">
+             </ComboBox>
+         </Grid>
+         <Grid Grid.Row="2">
+             <Grid.ColumnDefinitions>
+                 <ColumnDefinition></ColumnDefinition>
+                 <ColumnDefinition></ColumnDefinition>
+                 <ColumnDefinition></ColumnDefinition>
+             </Grid.ColumnDefinitions>
+             <Label Content="Хранилище" Height="28" Name="StorageLabel" VerticalAlignment="Top"/>
+            
+             <Label Grid.Column="0" Content="Объём" Height="28"  Width="100"/>
+             <TextBox Grid.Column="0" Margin="0,32,0,0"  Width="100" VerticalAlignment="Center" 
+                      Name="StorageSizeTextBox"/>
+             <Label Grid.Column="1" Content="Тип" Height="28"  Width="100" />
+             <ComboBox Grid.Column="1" Margin="0,32,0,0" Height="20" Width="100" Name="StorageTypeComboBox"
+                       ItemsSource="{Binding Source={StaticResource StorageTypes}}">
+             </ComboBox>
+         </Grid>
+         <Grid Grid.Row="3">
+             <Grid.ColumnDefinitions>
+                 <ColumnDefinition></ColumnDefinition>
+                 <ColumnDefinition></ColumnDefinition>
+                 <ColumnDefinition></ColumnDefinition>
+             </Grid.ColumnDefinitions>
+             <Label Content="Другое" Height="28" Name="OtherLabel" VerticalAlignment="Top"/>
+             
+            
+             <Label Grid.Column="0" Content="Цена" Height="28"  Width="100"/>
+             <TextBox Grid.Column="0" Margin="0,32,0,0"  Width="100" VerticalAlignment="Center" 
+                      Name="ComputerPriceTextBox"/>
+             <Label Grid.Column="1" Content="Производитель" Height="28"  Width="100" />
+             <ComboBox Grid.Column="1" Margin="0,32,0,0" Height="20" Width="100" Name="CompManufactComboBox"
+                       ItemsSource="{Binding Source={StaticResource Manufacturers}}">
+             </ComboBox>
+             <Button Grid.Column="2" Width="100" Margin="0,28,0,0" 
+                     Height="25" Name="AddButton" Click="AddButton_OnClick">Добавить</Button>
+         </Grid>
+    </Grid>
+</Window>
