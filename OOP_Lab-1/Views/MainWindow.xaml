@@ -8,7 +8,7 @@
         xmlns:models="clr-namespace:OOP_Lab_1.Models"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Name="grid1">
+    <Grid Name="Grid1">
         <ListView Name="MainList">
             <ListView.View>
                 <GridView>
@@ -17,10 +17,18 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Path=StorageGB}" Width="150">Размер Хранилища</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=StorageType}" Width="150">Тип Хранилища</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Manufacturer}" Width="150">Производитель</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}">Цена</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Width="50">Цена</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=CreationDate}" Width="150">Дата записи</GridViewColumn>
+                    <GridViewColumn Header="Действие">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Нажми, чтобы скопировать" Click="ShowHex"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
+                
             </ListView.View>
-            
         </ListView>
         <Button Name="AddInitButton" Click="AddInitButton_OnClick" Width="100" Height="30" Content="Добавить" VerticalAlignment="Bottom" Margin="20"/>
     </Grid>

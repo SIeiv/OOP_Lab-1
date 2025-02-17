@@ -9,40 +9,59 @@ public class Computer
 {
     public static int InstanceCount { get; private set; }
 
-    private Processor _processor;
-    private Ram _ram;
-    private int _storage;
-
-    public Processor CPU
-    {
-        get => _processor;
-        set => _processor = value ?? throw new InvalidProcessorException("Processor cannot be null");
-    }
-
-    public Ram Memory
-    {
-        get => _ram;
-        set => _ram = value;
-    }
-
+    public Processor CPU { get; set; }
+    public Ram Memory { get; set; }
+    
+    private int _storageGB;
     public int StorageGB
     {
-        get => _storage;
-        set => _storage = value switch {
+        get => _storageGB;
+        set => _storageGB = value switch
+        {
             >= 128 and <= 4096 => value,
-            _ => throw new InvalidStorageException("Storage must be between 128GB and 4TB")
+            _ => throw new InvalidStorageException("Хранилище должно быть от 128GB до 4096GB (4TB)")
         };
     }
-
+    
     public StorageType StorageType { get; set; }
     public Manufacturer Manufacturer { get; set; }
     public decimal Price { get; set; }
+    public DateTime CreationDate { get; set; }
 
     public Computer()
     {
         InstanceCount++;
+        CreationDate = DateTime.Now;
     }
 
-    public override string ToString() => 
-        $"{Manufacturer} | {CPU} | {Memory} | {StorageGB}GB {StorageType}";
+    public Computer(Manufacturer manufacturer) : this()
+    {
+        Manufacturer = manufacturer;
+    }
+
+    public Computer(Manufacturer manufacturer, decimal price) : this(manufacturer)
+    {
+        Price = price;
+    }
+
+    public Computer(Processor cpu, Ram memory, int storageGB, StorageType storageType, Manufacturer manufacturer, decimal price)
+        : this(manufacturer, price)
+    {
+        CPU = cpu;
+        Memory = memory;
+        StorageGB = storageGB;
+        StorageType = storageType;
+        CreationDate = DateTime.Now;
+    }
+
+    public string GetStorageInHex() => $"0x{StorageGB:X}";
+
+    public void DisplayPrice()
+    {
+        Console.WriteLine($"Цена: {Price}");
+    }
+
+    public override string ToString() =>
+        $"Производитель: {Manufacturer} | Процессор: {CPU} | ОЗУ: {Memory} | Хранилище: {StorageGB}GB {StorageType} | Цена: {Price:C}";
 }
+

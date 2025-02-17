@@ -1,15 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using OOP_Lab_1.Models;
-using OOP_Lab_1.Models.Components;
-using OOP_Lab_1.Models.Enums;
-
 namespace OOP_Lab_1.Views;
 
-public partial class MainWindow : Window
+public partial class MainWindow
 {
-    public List<Computer> Computers = new List<Computer>();
+    public List<Computer> Computers = [];
     public MainWindow()
     {
         InitializeComponent();
@@ -19,8 +15,14 @@ public partial class MainWindow : Window
 
     private void AddInitButton_OnClick(object sender, RoutedEventArgs e)
     {
-        AddWindow addWindow = new AddWindow();
-        addWindow.CustomOwner = this;
+        var addWindow = new AddWindow(this);
         addWindow.Show();
+    }
+
+    private void ShowHex(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button { DataContext: Computer computer } btn) return;
+        btn.Content = "Скопировано";
+        Clipboard.SetText(computer.GetStorageInHex());
     }
 }

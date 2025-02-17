@@ -3,5 +3,5 @@
 public class InvalidStorageException : InvalidComponentException
 {
     public InvalidStorageException(string message) 
-        : base("Processor", message) { }
+        : base("Storage", message) { }
 }

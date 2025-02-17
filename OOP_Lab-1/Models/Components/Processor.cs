@@ -10,7 +10,8 @@ public record Processor
     private string _model;
     private double _frequency;
 
-    public Processor() {}
+    public Processor() { }
+
     public Processor(Manufacturer manufacturer, string model, double frequency)
     {
         Brand = manufacturer;
@@ -21,25 +22,28 @@ public record Processor
     public Manufacturer Brand
     {
         get => _brand;
-        set => _brand = IsValidBrand(value) ? value : 
-            throw new InvalidProcessorException("Invalid processor brand");
+        set => _brand = IsValidBrand(value)
+            ? value 
+            : throw new InvalidProcessorException("Неверный производитель процессора");
     }
 
     public string Model
     {
         get => _model;
-        set => _model = string.IsNullOrWhiteSpace(value) ? 
-            throw new InvalidProcessorException("Model cannot be empty") : value;
+        set => _model = string.IsNullOrWhiteSpace(value)
+            ? throw new InvalidProcessorException("Модель не может быть пустой")
+            : value;
     }
 
     public double FrequencyGHz
     {
         get => _frequency;
-        set => _frequency = value is > 0 and <= 6 ? value : 
-            throw new InvalidProcessorException("Invalid frequency");
+        set => _frequency = value is > 0 and <= 6 
+            ? value 
+            : throw new InvalidProcessorException("Частота должна быть > 0 и <= 6GHz");
     }
 
-    private static bool IsValidBrand(Manufacturer brand) => 
+    private static bool IsValidBrand(Manufacturer brand) =>
         brand is Manufacturer.Intel or Manufacturer.AMD or Manufacturer.Apple;
 
     public override string ToString() => $"{Brand} {Model} @ {FrequencyGHz}GHz";
