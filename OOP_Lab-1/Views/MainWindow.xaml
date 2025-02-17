@@ -8,7 +8,7 @@
         xmlns:models="clr-namespace:OOP_Lab_1.Models"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Name="grid1">
+    <Grid Name="Grid1">
         <ListView Name="MainList">
             <ListView.View>
                 <GridView>

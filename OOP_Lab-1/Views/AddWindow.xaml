@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:OOP_Lab_1.Views"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
         xmlns:enums="clr-namespace:OOP_Lab_1.Models.Enums"
         mc:Ignorable="d"
@@ -45,7 +44,7 @@
             <Label Content="Производитель" Height="28" Name="ProcessorManufactLabel" Width="100" />
             
             <ComboBox Margin="0,32,0,0" Height="20" Width="100" Name="ProcessorManufactComboBox"
-                      ItemsSource="{Binding Source={StaticResource Manufacturers}}">
+                      ItemsSource="{Binding Source={StaticResource Manufacturers}}" SelectedIndex="0">
             </ComboBox>
             
             <Label Grid.Column="1" Content="Модель" Height="28" Name="ProcessorModelLabel" Width="100"/>
@@ -67,7 +66,7 @@
              
              <Label Grid.Column="1" Content="Тип" Height="28" Name="BaseLabel" Width="100" />
              <ComboBox Grid.Column="1" Margin="0,32,0,0" Height="20" Width="100" Name="RamTypeComboBox"
-                       ItemsSource="{Binding Source={StaticResource RamTypes}}">
+                       ItemsSource="{Binding Source={StaticResource RamTypes}}" SelectedIndex="0">
              </ComboBox>
          </Grid>
          <Grid Grid.Row="2">
@@ -83,7 +82,7 @@
                       Name="StorageSizeTextBox"/>
              <Label Grid.Column="1" Content="Тип" Height="28"  Width="100" />
              <ComboBox Grid.Column="1" Margin="0,32,0,0" Height="20" Width="100" Name="StorageTypeComboBox"
-                       ItemsSource="{Binding Source={StaticResource StorageTypes}}">
+                       ItemsSource="{Binding Source={StaticResource StorageTypes}}" SelectedIndex="0">
              </ComboBox>
          </Grid>
          <Grid Grid.Row="3">
@@ -100,10 +99,10 @@
                       Name="ComputerPriceTextBox"/>
              <Label Grid.Column="1" Content="Производитель" Height="28"  Width="100" />
              <ComboBox Grid.Column="1" Margin="0,32,0,0" Height="20" Width="100" Name="CompManufactComboBox"
-                       ItemsSource="{Binding Source={StaticResource Manufacturers}}">
+                       ItemsSource="{Binding Source={StaticResource Manufacturers}}" SelectedIndex="0">
              </ComboBox>
              <Button Grid.Column="2" Width="100" Margin="0,28,0,0" 
-                     Height="25" Name="AddButton" Click="AddButton_OnClick">Добавить</Button>
+                     Height="25" Name="AddButton" Command="{Binding  AddCommand}" >Добавить</Button>
          </Grid>
     </Grid>
 </Window>
