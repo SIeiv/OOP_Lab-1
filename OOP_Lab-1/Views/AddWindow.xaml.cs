@@ -1,72 +1,87 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Input;
+using OOP_Lab_1.Exceptions;
+using OOP_Lab_1.Helpers.Utilities;
 using OOP_Lab_1.Models;
 using OOP_Lab_1.Models.Components;
 using OOP_Lab_1.Models.Enums;
 using OOP_Lab_1.ViewModels;
-using static System.Enum;
 
-namespace OOP_Lab_1.Views;
-
-public partial class AddWindow
+namespace OOP_Lab_1.Views
 {
-    public ICommand AddCommand => new RelayCommand(_ => AddComputer() );
-
-    
-    
-    private readonly MainWindow _customOwner;
-    public AddWindow(MainWindow owner)
+    public partial class AddWindow : Window
     {
-        _customOwner = owner;
-        DataContext = this;
-        InitializeComponent();
-    }
+        public ICommand AddCommand => new RelayCommand(_ => AddComputer());
 
-    private void AddComputer()
-    {
-        try
+        private readonly MainWindow _customOwner;
+        public AddWindow(MainWindow owner)
         {
-            TryParse(ProcessorManufactComboBox.Text, out Manufacturer processorManufacturer);
+            _customOwner = owner;
+            DataContext = this;
+            InitializeComponent();
+        }
 
-            TryParse(RamTypeComboBox.Text, out MemoryType memoryType);
-
-            TryParse(StorageTypeComboBox.Text, out StorageType storageType);
-
-            TryParse(CompManufactComboBox.Text, out Manufacturer compManufacturer);
-            
-            var p1 = new Processor(processorManufacturer, ProcessorModelTextBox.Text,
-                int.Parse(ProcessorFrequencyTextBox.Text));
-            var r1 = new Ram(int.Parse(RamSizeTextBox.Text), memoryType);
-        
-            var c1 = new Computer
+        private void AddComputer()
+        {
+            try
             {
-                CPU = p1,
-                Memory = r1,
-                StorageGB = short.Parse(StorageSizeTextBox.Text),
-                StorageType = storageType,
-                Manufacturer = compManufacturer,
-                Price = short.Parse(ComputerPriceTextBox.Text)
-            };
+                if (!Enum.TryParse<Manufacturer>(ProcessorManufactComboBox.Text, out Manufacturer processorManufacturer))
+                    throw new InvalidProcessorException("Неверный производитель процессора");
 
-            _customOwner.Computers.Add(c1);
-            _customOwner.MainList.Items.Refresh();
-            Close();
+                if (!Enum.TryParse<MemoryType>(RamTypeComboBox.Text, out MemoryType memoryType))
+                    throw new InvalidRamException("Неверный тип памяти");
+
+                if (!Enum.TryParse<StorageType>(StorageTypeComboBox.Text, out StorageType storageType))
+                    throw new InvalidStorageException("Неверный тип хранилища");
+
+                if (!Enum.TryParse<Manufacturer>(CompManufactComboBox.Text, out Manufacturer compManufacturer))
+                    throw new Exception("Неверный производитель компьютера");
+
+                var processorFrequency = Math.Round(float.Parse(ProcessorFrequencyTextBox.Text), 3);
+                var p1 = new Processor(processorManufacturer, ProcessorModelTextBox.Text, processorFrequency);
+                var r1 = new Ram(int.Parse(RamSizeTextBox.Text), memoryType);
+        
+                decimal price = decimal.Parse(ComputerPriceTextBox.Text);
+                if (price <= 0)
+                    throw new ArgumentException("Цена не может быть меньше или равна 0");
+
+                var storageSize = int.Parse(StorageSizeTextBox.Text);
+                var c1 = new Computer(p1, r1, storageSize, storageType, compManufacturer, price);
+
+                if (processorFrequency == 1)
+                {
+                    var dnCls = new DangerousClass();
+                    dnCls.DangerousMethod();
+                }
+
+                _customOwner.Computers.Add(c1);
+                _customOwner.MainList.Items.Refresh();
+                Close();
+            }
+            catch (CustomStackOverflowException ex)
+            {
+                ShowNativeMessageBox("Произошла ошибка!", ex.Message);
+            }
+            catch (InvalidComponentException ex)
+            {
+                ShowNativeMessageBox("Пользовательская ошибка", ex.Message);
+            }
+            catch (Exception exception)
+            {
+                
+                ShowNativeMessageBox("Ошибка", exception.Message);
+
+            }
         }
-        catch (Exception exception)
+    
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        private static extern int MessageBox(IntPtr hWnd, string text, string caption, uint type);
+
+        private void ShowNativeMessageBox(string title, string message)
         {
-            ShowNativeMessageBox("Большой секс", exception.Message);
+            MessageBox(IntPtr.Zero, message, title, 0x00000040);
         }
     }
-    
-    
-    
-    [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-    private static extern int MessageBox(IntPtr hWnd, string text, string caption, uint type);
-
-    private void ShowNativeMessageBox(string title, string message)
-    {
-        MessageBox(IntPtr.Zero, message, title, 0x00000040);
-    }
-    
-    
 }
